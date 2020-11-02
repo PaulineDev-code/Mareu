@@ -1,5 +1,7 @@
 package com.openclassrooms.mareu.model;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 public class Reunion {
@@ -8,11 +10,11 @@ public class Reunion {
     private String color;
     private String name ;
     private String aboutIt;
-    private String heure ;
+    private Date heure ;
     private String lieu ;
     private String email ;
 
-    public Reunion (long id, String color, String name, String heure, String lieu, String email, String aboutIt){
+    public Reunion (long id, String color, String name, LocalDateTime heure, String lieu, String email, String aboutIt){
 
         this.id = id;
         this.color = color;
@@ -40,10 +42,10 @@ public class Reunion {
     public String getAboutIt() { return aboutIt; }
     public void setAboutIt(String aboutIt) { this.aboutIt = aboutIt; }
 
-    public String getHeure() {
+    public LocalDateTime getHeure() {
         return heure;
     }
-    public void setHeure(String heure) {
+    public void setHeure(LocalDateTime heure) {
         this.heure = heure;
     }
 
