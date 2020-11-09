@@ -10,18 +10,18 @@ public class Reunion {
     private String color;
     private String name ;
     private String aboutIt;
-    private Date heure ;
-    private String lieu ;
+    private String date ;
+    private String room ;
     private String email ;
 
-    public Reunion (long id, String color, String name, LocalDateTime heure, String lieu, String email, String aboutIt){
+    public Reunion (long id, String color, String name, String date, String room, String email, String aboutIt){
 
         this.id = id;
         this.color = color;
         this.name = name;
         this.aboutIt = aboutIt;
-        this.heure = heure;
-        this.lieu = lieu;
+        this.date = date;
+        this.room = room;
         this.email = email;
 
     }
@@ -42,18 +42,18 @@ public class Reunion {
     public String getAboutIt() { return aboutIt; }
     public void setAboutIt(String aboutIt) { this.aboutIt = aboutIt; }
 
-    public LocalDateTime getHeure() {
-        return heure;
+    public String getDate() {
+        return date;
     }
-    public void setHeure(LocalDateTime heure) {
-        this.heure = heure;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getLieu() {
-        return lieu;
+    public String getRoom() {
+        return room;
     }
-    public void setLieu(String lieu) {
-        this.lieu = lieu;
+    public void setRoom(String lieu) {
+        this.room = lieu;
     }
 
     public String getEmail() {
@@ -62,6 +62,14 @@ public class Reunion {
     public void setEmail(String email) {
         this.email = email;
     }
+
+//    //Room model
+//    public class Room {
+//        private String roomName;
+//        private int color;
+//
+//    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -74,3 +82,4 @@ public class Reunion {
 
 
 }
+

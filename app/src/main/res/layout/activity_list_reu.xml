@@ -28,13 +28,12 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_reunion"
-        android:name="com.openclassrooms.mareu.ui.ReuFragment"
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.openclassrooms.mareu.ui.ReuFragment"
+        tools:context="com.openclassrooms.mareu.ui.ListReuActivity"
         tools:listitem="@layout/fragment_reu" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

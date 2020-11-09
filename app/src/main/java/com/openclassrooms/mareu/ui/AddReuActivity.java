@@ -1,5 +1,6 @@
 package com.openclassrooms.mareu.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -104,7 +105,7 @@ public class AddReuActivity extends AppCompatActivity {
         return "https://i.pravatar.cc/150?u="+ System.currentTimeMillis();
     }
 
-    public static void navigate(FragmentActivity activity) {
+    public static void navigate(Activity activity) {
         Intent intent = new Intent(activity, AddReuActivity.class);
         ActivityCompat.startActivity(activity, intent, null);
     }

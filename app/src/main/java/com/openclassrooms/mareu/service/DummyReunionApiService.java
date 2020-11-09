@@ -3,6 +3,7 @@ package com.openclassrooms.mareu.service;
 import com.openclassrooms.mareu.model.Reunion;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,6 +37,26 @@ public class DummyReunionApiService implements  ReunionApiService {
         listReunion.add(reunion);
     }
 
+    public class DummyFilterApiService {
+
+        public List<Reunion> locationFilter(List<Reunion> reunionList, String room){
+            List<Reunion> toRemoveList = new ArrayList<>();
+            for (Reunion reunion : reunionList) {
+                if(!reunion.getRoom().equals(room)){
+                    toRemoveList.add(reunion);
+                }
+            }
+            reunionList.removeAll(toRemoveList);
+            return reunionList;
+        }
+
+//        public List<Reunion> dateFilter(List<Reunion> reunionList, Date date){
+//
+//
+//        }
+
+    }
+
     @Override
     public Reunion getReunionbyid(long id) {
         for (Reunion reunion : listReunion) {
@@ -46,3 +67,4 @@ public class DummyReunionApiService implements  ReunionApiService {
         return null;
     }
 }
+

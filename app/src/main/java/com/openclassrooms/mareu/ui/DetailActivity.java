@@ -64,10 +64,10 @@ public class DetailActivity extends AppCompatActivity {
 
 
         TextView DetailAboutMe = findViewById(R.id.heure);
-        DetailAboutMe.setText(reunion.getHeure());
+        DetailAboutMe.setText(reunion.getDate());
 
         TextView DetailAddress = findViewById(R.id.lieu);
-        DetailAddress.setText(reunion.getLieu());
+        DetailAddress.setText(reunion.getRoom());
 
         TextView DetailPhone = findViewById(R.id.email);
         DetailPhone.setText(reunion.getEmail());
