@@ -10,11 +10,11 @@ public class Reunion {
     private String color;
     private String name ;
     private String aboutIt;
-    private String date ;
+    private Date date ;
     private String room ;
     private String email ;
 
-    public Reunion (long id, String color, String name, String date, String room, String email, String aboutIt){
+    public Reunion (long id, String color, String name, Date date, String room, String email, String aboutIt){
 
         this.id = id;
         this.color = color;
@@ -42,10 +42,10 @@ public class Reunion {
     public String getAboutIt() { return aboutIt; }
     public void setAboutIt(String aboutIt) { this.aboutIt = aboutIt; }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

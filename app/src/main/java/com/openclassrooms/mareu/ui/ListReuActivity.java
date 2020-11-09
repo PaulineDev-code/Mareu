@@ -56,4 +56,10 @@ public class ListReuActivity extends AppCompatActivity {
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mRecyclerView.getAdapter()!= null)
+        this.mRecyclerView.getAdapter().notifyDataSetChanged();
+    }
 }

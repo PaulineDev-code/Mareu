@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,8 @@ import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.model.Reunion;
 import com.openclassrooms.mareu.service.ReunionApiService;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -35,7 +38,7 @@ public class AddReuActivity extends AppCompatActivity {
     TextInputLayout nameInput;
     @BindView(R.id.lieuLyt)
     TextInputLayout lieuInput;
-    @BindView(R.id.heureLyt)
+    @BindView(R.id.datePicker1)
     TextInputLayout heureInput;
     @BindView(R.id.aboutItLyt)
     TextInputLayout aboutItInput;
@@ -46,6 +49,7 @@ public class AddReuActivity extends AppCompatActivity {
 
     private ReunionApiService mApiService;
     private String mNeighbourImage;
+    private DatePicker picker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class AddReuActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         mApiService = DI.getReunionApiService();
+        picker=(DatePicker)findViewById(R.id.datePicker1);
         init();
     }
 
@@ -86,14 +91,21 @@ public class AddReuActivity extends AppCompatActivity {
 
     }
 
+    private void getDate(){
+        final Calendar cldr = Calendar.getInstance();
+        int day = cldr.get(Calendar.DAY_OF_MONTH);
+        int month = cldr.get(Calendar.MONTH);
+        int year = cldr.get(Calendar.YEAR);
+    }
+
     @OnClick(R.id.create)
     void addReu() {
         Reunion reunion = new Reunion(
                 System.currentTimeMillis(),
                 nameInput.getEditText().getText().toString(),
                 mNeighbourImage,
+                new Date(),
                 lieuInput.getEditText().getText().toString(),
-                heureInput.getEditText().getText().toString(),
                 emailInput.getEditText().getText().toString(),
                 aboutItInput.getEditText().getText().toString()
         );
@@ -108,6 +120,7 @@ public class AddReuActivity extends AppCompatActivity {
     public static void navigate(Activity activity) {
         Intent intent = new Intent(activity, AddReuActivity.class);
         ActivityCompat.startActivity(activity, intent, null);
+        //navigation component
     }
 
 }
