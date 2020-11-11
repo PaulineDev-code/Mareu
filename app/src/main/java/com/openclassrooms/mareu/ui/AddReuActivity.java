@@ -39,7 +39,7 @@ public class AddReuActivity extends AppCompatActivity {
     @BindView(R.id.lieuLyt)
     TextInputLayout lieuInput;
     @BindView(R.id.datePicker1)
-    TextInputLayout heureInput;
+    DatePicker heureInput;
     @BindView(R.id.aboutItLyt)
     TextInputLayout aboutItInput;
     @BindView(R.id.emailLyt)
