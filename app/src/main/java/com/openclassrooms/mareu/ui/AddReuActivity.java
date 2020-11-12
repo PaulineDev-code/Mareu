@@ -7,11 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -21,6 +25,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mareu.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.model.Reunion;
@@ -56,6 +64,7 @@ public class AddReuActivity extends AppCompatActivity {
     private DatePicker picker;
     private Calendar myCalendar;
     private TextView dateview;
+    private Button addEmailButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +76,7 @@ public class AddReuActivity extends AppCompatActivity {
         mApiService = DI.getReunionApiService();
         init();
         getDate();
+        setAddEmailButton();
     }
 
     @Override
@@ -126,6 +136,44 @@ public class AddReuActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
         dateview.setText(sdf.format(myCalendar.getTime()));
+    }
+    private boolean emailValid(CharSequence email){
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+    private void setAddEmailButton(){
+        addEmailButton = findViewById(R.id.add_email_button);
+        addEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final TextInputEditText email = findViewById(R.id.email);
+                final ChipGroup chipGroup = findViewById(R.id.chip_group);
+
+                final Chip chip = new Chip(getApplicationContext());
+                ChipDrawable drawable = ChipDrawable.createFromAttributes(getApplicationContext(), null, 0, R.style.Widget_MaterialComponents_Chip_Entry);
+                chip.setChipDrawable(drawable);
+                chip.setCheckable(false);
+                chip.setClickable(false);
+                chip.setChipIconResource(R.drawable.ic_baseline_fingerprint_24);
+                chip.setIconStartPadding(3f);
+                chip.setPadding(60, 10, 60, 10);
+                chip.setText(email.getText().toString());
+
+                chip.setOnCloseIconClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        chipGroup.removeView(chip);
+                    }
+                });
+                if (!emailValid(email.getText().toString())){
+                    Toast.makeText(AddReuActivity.this, "Rentrez un email valide", Toast.LENGTH_SHORT).show();
+                    email.setText("");
+                }
+                else {
+                    chipGroup.addView(chip);
+                    email.setText("");
+                }
+            }
+        });
     }
 
     @OnClick(R.id.create)
