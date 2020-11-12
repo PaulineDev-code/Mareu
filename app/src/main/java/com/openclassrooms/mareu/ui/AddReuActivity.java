@@ -10,10 +10,13 @@ import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,13 +33,16 @@ import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.model.Reunion;
 import com.openclassrooms.mareu.service.ReunionApiService;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -50,8 +56,6 @@ public class AddReuActivity extends AppCompatActivity {
     ImageView avatar;
     @BindView(R.id.nameLyt)
     TextInputLayout nameInput;
-    @BindView(R.id.lieuLyt)
-    TextInputLayout lieuInput;
     @BindView(R.id.aboutItLyt)
     TextInputLayout aboutItInput;
     @BindView(R.id.emailLyt)
@@ -65,6 +69,9 @@ public class AddReuActivity extends AppCompatActivity {
     private Calendar myCalendar;
     private TextView dateview;
     private Button addEmailButton;
+    private Spinner spinner;
+    private String[] roomsList= {"Mario", "Luigi", "Warrio", "Waluigi", "Boo", "DonkeyKong"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +84,7 @@ public class AddReuActivity extends AppCompatActivity {
         init();
         getDate();
         setAddEmailButton();
+        initSpinner();
     }
 
     @Override
@@ -105,6 +113,28 @@ public class AddReuActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void initSpinner(){
+        spinner = (Spinner) findViewById(R.id.spinner);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, roomsList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(new NothingSelectedSpinnerAdapter(
+                arrayAdapter, R.layout.contact_spinner_row_nothing_selected, this
+        ));
+        spinner.setPrompt("Sélectionnez une salle");
     }
 
     private void getDate(){
@@ -148,8 +178,8 @@ public class AddReuActivity extends AppCompatActivity {
                 final TextInputEditText email = findViewById(R.id.email);
                 final ChipGroup chipGroup = findViewById(R.id.chip_group);
 
-                final Chip chip = new Chip(getApplicationContext());
-                ChipDrawable drawable = ChipDrawable.createFromAttributes(getApplicationContext(), null, 0, R.style.Widget_MaterialComponents_Chip_Entry);
+                final Chip chip = new Chip(AddReuActivity.this);
+                ChipDrawable drawable = ChipDrawable.createFromAttributes(AddReuActivity.this, null, 0, R.style.Widget_MaterialComponents_Chip_Entry);
                 chip.setChipDrawable(drawable);
                 chip.setCheckable(false);
                 chip.setClickable(false);
@@ -183,7 +213,7 @@ public class AddReuActivity extends AppCompatActivity {
                 nameInput.getEditText().getText().toString(),
                 mNeighbourImage,
                 new Date(),
-                lieuInput.getEditText().getText().toString(),
+                spinner.getSelectedItem().toString(),
                 emailInput.getEditText().getText().toString(),
                 aboutItInput.getEditText().getText().toString()
         );
