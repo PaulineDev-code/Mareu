@@ -2,6 +2,7 @@ package com.openclassrooms.mareu.ui;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,6 +70,7 @@ public class AddReuActivity extends AppCompatActivity {
     private DatePicker picker;
     private Calendar myCalendar;
     private TextView dateview;
+    private TextView timeview;
     private Button addEmailButton;
     private Spinner spinner;
     private String[] roomsList= {"Mario", "Luigi", "Warrio", "Waluigi", "Boo", "DonkeyKong"};
@@ -161,12 +164,36 @@ public class AddReuActivity extends AppCompatActivity {
         });
     }
 
+
     private void updateLabel(){
         String myFormat = "dd/MM/YY";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
         dateview.setText(sdf.format(myCalendar.getTime()));
     }
+
+    private void getTime(){
+        myCalendar = Calendar.getInstance();
+
+        timeview = (TextView) findViewById(R.id.timePickerLyt);
+        TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                myCalendar.set(Calendar.HOUR_OF_DAY, hour);
+                myCalendar.set(Calendar.MINUTE, minute);
+
+            }
+        };
+
+        timeview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new TimePickerDialog(AddReuActivity.this, R.style.DialogTheme, time, myCalendar.get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE)).show();
+            }
+        });
+
+    }
+
     private boolean emailValid(CharSequence email){
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
