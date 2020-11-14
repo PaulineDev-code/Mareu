@@ -9,10 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity
-            android:name="com.openclassrooms.mareu.ui.AddReuActivity"
-            android:label="New reunion"
-            android:theme="@style/AppTheme"/>
         <activity android:name="com.openclassrooms.mareu.ui.ListReuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.openclassrooms.mareu.ui.AddReuActivity"
+            android:label="New reunion"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name="com.openclassrooms.mareu.ui.DetailActivity"
+            android:label="Detail view of a reunion"/>
+
     </application>
 
 </manifest>

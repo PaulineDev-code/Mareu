@@ -86,6 +86,7 @@ public class AddReuActivity extends AppCompatActivity {
         mApiService = DI.getReunionApiService();
         init();
         getDate();
+        getTime();
         setAddEmailButton();
         initSpinner();
     }
@@ -150,7 +151,7 @@ public class AddReuActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
+                updateLabelDate();
             }
         };
 
@@ -165,7 +166,7 @@ public class AddReuActivity extends AppCompatActivity {
     }
 
 
-    private void updateLabel(){
+    private void updateLabelDate(){
         String myFormat = "dd/MM/YY";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
@@ -181,6 +182,7 @@ public class AddReuActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 myCalendar.set(Calendar.HOUR_OF_DAY, hour);
                 myCalendar.set(Calendar.MINUTE, minute);
+                updateLabelTime();
 
             }
         };
@@ -188,10 +190,19 @@ public class AddReuActivity extends AppCompatActivity {
         timeview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new TimePickerDialog(AddReuActivity.this, R.style.DialogTheme, time, myCalendar.get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE)).show();
+                new TimePickerDialog(AddReuActivity.this, R.style.DialogTheme, time,
+                        myCalendar.get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE),
+                        false).show();
             }
         });
 
+    }
+
+    private void updateLabelTime(){
+        String myFormat = "HH 'h' mm";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+
+        timeview.setText(sdf.format(myCalendar.getTime()));
     }
 
     private boolean emailValid(CharSequence email){
