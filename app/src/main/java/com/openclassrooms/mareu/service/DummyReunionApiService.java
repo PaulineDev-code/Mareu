@@ -37,6 +37,8 @@ public class DummyReunionApiService implements  ReunionApiService {
         listReunion.add(reunion);
     }
 
+
+
     public class DummyFilterApiService {
 
         public List<Reunion> locationFilter(List<Reunion> reunionList, String room){

@@ -3,7 +3,6 @@ package com.openclassrooms.mareu.ui;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,7 +22,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -35,18 +32,14 @@ import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.model.Reunion;
 import com.openclassrooms.mareu.service.ReunionApiService;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,7 +66,8 @@ public class AddReuActivity extends AppCompatActivity {
     private TextView timeview;
     private Button addEmailButton;
     private Spinner spinner;
-    private String[] roomsList= {"Mario", "Luigi", "Warrio", "Waluigi", "Boo", "DonkeyKong"};
+    private String[] roomsList= {"Mario", "Luigi", "Wario", "Waluigi", "Boo", "DonkeyKong"};
+    private Date finalDate;
 
 
     @Override
@@ -258,6 +252,8 @@ public class AddReuActivity extends AppCompatActivity {
         mApiService.createReunion(reunion);
         finish();
     }
+
+
 
     String randomImage() {
         return "https://i.pravatar.cc/150?u="+ System.currentTimeMillis();

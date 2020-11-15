@@ -2,6 +2,8 @@ package com.openclassrooms.mareu.ui;
 
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Adapter;
 
 import butterknife.BindView;
@@ -40,6 +42,7 @@ public class ListReuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_reu);
         ButterKnife.bind(this);
+        setSupportActionBar(mToolbar);
         initRecyclerView();
     }
 
@@ -54,6 +57,18 @@ public class ListReuActivity extends AppCompatActivity {
         this.mAdapter = new MyReuRecyclerViewAdapter(mReunion);
         this.mRecyclerView.setAdapter(this.mAdapter);
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

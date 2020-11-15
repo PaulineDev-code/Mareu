@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.openclassrooms.mareu.ui.ListReuActivity">
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_baseline_filter_list_24"
+        android:orderInCategory="100"
+        android:title="@string/settings"
+        app:showAsAction="ifRoom">
+
+        <menu>
+
+            <item
+                android:id="@+id/action_menu1"
+                android:orderInCategory="1"
+                android:title="@string/filtrer_par_date">
+            </item>
+
+            <item
+                android:id="@+id/action_menu2"
+                android:orderInCategory="2"
+                android:title="@string/filtrer_par_salle">
+
+                <menu>
+                    <item
+                        android:id="@+id/filter_room_1"
+                        android:orderInCategory="1"
+                        android:title="@string/salle_mario">
+                    </item>
+
+                    <item
+                        android:id="@+id/filter_room_2"
+                        android:orderInCategory="2"
+                        android:title="@string/salle_luigi">
+                    </item>
+                    <item
+                        android:id="@+id/filter_room_3"
+                        android:orderInCategory="3"
+                        android:title="@string/salle_wario">
+                    </item>
+                    <item
+                        android:id="@+id/filter_room_4"
+                        android:orderInCategory="4"
+                        android:title="@string/salle_waluigi">
+                    </item>
+                    <item
+                        android:id="@+id/filter_room_5"
+                        android:orderInCategory="5"
+                        android:title="@string/salle_boo">
+                    </item>
+                    <item
+                        android:id="@+id/filter_room_6"
+                        android:orderInCategory="6"
+                        android:title="@string/salle_donkeykong">
+                    </item>
+                </menu>
+            </item>
+
+        </menu>
+
+    </item>
+
+
+</menu>

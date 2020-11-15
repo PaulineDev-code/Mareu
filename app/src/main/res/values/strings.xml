@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Ma réu</string>
+    <string name="settings">settings</string>
+    <string name="filtrer_par_date">Filtrer par date</string>
+    <string name="filtrer_par_salle">Filtrer par salle</string>
+    <string name="salle_mario">Salle Mario</string>
+    <string name="salle_luigi">Salle Luigi</string>
+    <string name="salle_wario">Salle Wario</string>
+    <string name="salle_waluigi">Salle Waluigi</string>
+    <string name="salle_boo">Salle Boo</string>
+    <string name="salle_donkeykong">Salle DonkeyKong</string>
+
 </resources>
