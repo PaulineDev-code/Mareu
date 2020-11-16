@@ -52,9 +52,7 @@ public class Reunion {
     public String getRoom() {
         return room;
     }
-    public void setRoom(String lieu) {
-        this.room = lieu;
-    }
+    public void setRoom(String room) { this.room = room; }
 
     public String getEmail() {
         return email;

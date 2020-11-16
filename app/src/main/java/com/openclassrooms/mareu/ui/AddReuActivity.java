@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -61,13 +62,12 @@ public class AddReuActivity extends AppCompatActivity {
     private ReunionApiService mApiService;
     private String mNeighbourImage;
     private DatePicker picker;
-    private Calendar myCalendar;
+    private Calendar myCalendar = Calendar.getInstance();
     private TextView dateview;
     private TextView timeview;
     private Button addEmailButton;
     private Spinner spinner;
-    private String[] roomsList= {"Mario", "Luigi", "Wario", "Waluigi", "Boo", "DonkeyKong"};
-    private Date finalDate;
+    private String[] roomsList = {"Mario", "Luigi", "Wario", "Waluigi", "Boo", "DonkeyKong"};
 
 
     @Override
@@ -88,7 +88,7 @@ public class AddReuActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home : {
+            case android.R.id.home: {
                 finish();
                 return true;
             }
@@ -102,9 +102,13 @@ public class AddReuActivity extends AppCompatActivity {
                 .apply(RequestOptions.circleCropTransform()).into(avatar);
         nameInput.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
                 addButton.setEnabled(s.length() > 0);
@@ -113,8 +117,8 @@ public class AddReuActivity extends AppCompatActivity {
 
     }
 
-    private void initSpinner(){
-        spinner = (Spinner) findViewById(R.id.spinner);
+    private void initSpinner() {
+        spinner = findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -135,42 +139,41 @@ public class AddReuActivity extends AppCompatActivity {
         spinner.setPrompt("Sélectionnez une salle");
     }
 
-    private void getDate(){
-        myCalendar = Calendar.getInstance();
+    private boolean isSpinnerEmpty(Spinner spinner) {
+        return spinner.getSelectedItemPosition() == 0;
+    }
 
-        dateview = (TextView) findViewById(R.id.datePickerLyt);
-        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabelDate();
-            }
+    private void getDate() {
+
+        dateview = findViewById(R.id.datePickerLyt);
+        DatePickerDialog.OnDateSetListener date = (datePicker, year, monthOfYear, dayOfMonth) -> {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabelDate();
         };
 
-        dateview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new DatePickerDialog(AddReuActivity.this, R.style.DialogTheme, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
+        dateview.setOnClickListener(view -> {
+            DatePickerDialog myDatePicker = new DatePickerDialog(AddReuActivity.this, R.style.DialogTheme, date, myCalendar
+                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                    myCalendar.get(Calendar.DAY_OF_MONTH));
+            myDatePicker.show();
+
+
+
         });
     }
 
-
-    private void updateLabelDate(){
+    private void updateLabelDate() {
         String myFormat = "dd/MM/YY";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
         dateview.setText(sdf.format(myCalendar.getTime()));
     }
 
-    private void getTime(){
-        myCalendar = Calendar.getInstance();
+    private void getTime() {
 
-        timeview = (TextView) findViewById(R.id.timePickerLyt);
+        timeview = findViewById(R.id.timePickerLyt);
         TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
@@ -192,17 +195,21 @@ public class AddReuActivity extends AppCompatActivity {
 
     }
 
-    private void updateLabelTime(){
+    private void updateLabelTime() {
         String myFormat = "HH 'h' mm";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
         timeview.setText(sdf.format(myCalendar.getTime()));
+
     }
 
-    private boolean emailValid(CharSequence email){
+
+
+    private boolean emailValid(CharSequence email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
-    private void setAddEmailButton(){
+
+    private void setAddEmailButton() {
         addEmailButton = findViewById(R.id.add_email_button);
         addEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,11 +218,12 @@ public class AddReuActivity extends AppCompatActivity {
                 final ChipGroup chipGroup = findViewById(R.id.chip_group);
 
                 final Chip chip = new Chip(AddReuActivity.this);
-                ChipDrawable drawable = ChipDrawable.createFromAttributes(AddReuActivity.this, null, 0, R.style.Widget_MaterialComponents_Chip_Entry);
+                ChipDrawable drawable = ChipDrawable.createFromAttributes(AddReuActivity.this, null,
+                        0, R.style.Widget_MaterialComponents_Chip_Entry);
                 chip.setChipDrawable(drawable);
                 chip.setCheckable(false);
                 chip.setClickable(false);
-                chip.setChipIconResource(R.drawable.ic_baseline_fingerprint_24);
+                chip.setChipIconResource(R.drawable.ic_baseline_email_24);
                 chip.setIconStartPadding(3f);
                 chip.setPadding(60, 10, 60, 10);
                 chip.setText(email.getText().toString());
@@ -226,11 +234,10 @@ public class AddReuActivity extends AppCompatActivity {
                         chipGroup.removeView(chip);
                     }
                 });
-                if (!emailValid(email.getText().toString())){
+                if (!emailValid(email.getText().toString())) {
                     Toast.makeText(AddReuActivity.this, "Rentrez un email valide", Toast.LENGTH_SHORT).show();
                     email.setText("");
-                }
-                else {
+                } else {
                     chipGroup.addView(chip);
                     email.setText("");
                 }
@@ -238,25 +245,57 @@ public class AddReuActivity extends AppCompatActivity {
         });
     }
 
+
     @OnClick(R.id.create)
     void addReu() {
-        Reunion reunion = new Reunion(
-                System.currentTimeMillis(),
-                nameInput.getEditText().getText().toString(),
-                mNeighbourImage,
-                new Date(),
-                spinner.getSelectedItem().toString(),
-                emailInput.getEditText().getText().toString(),
-                aboutItInput.getEditText().getText().toString()
-        );
-        mApiService.createReunion(reunion);
-        finish();
+        if (!(isSpinnerEmpty(spinner))) {
+            Reunion reunion = new Reunion(
+                    System.currentTimeMillis(),
+                    nameInput.getEditText().getText().toString(),
+                    mNeighbourImage,
+                    myCalendar.getTime(),
+                    spinner.getSelectedItem().toString(),
+                    emailInput.getEditText().getText().toString(),
+                    aboutItInput.getEditText().getText().toString()
+
+            );
+            int isRoomEmpty = spinner.getSelectedItem().toString().length();
+            int isAboutItEmpty = aboutItInput.getEditText().getText().toString().length();
+            int isDateEmpty = dateview.getText().toString().length();
+            int isTimeEmpty = timeview.getText().toString().length();
+            final ChipGroup chipGroup = findViewById(R.id.chip_group);
+
+            if (!(isSpinnerEmpty(spinner)) && isAboutItEmpty != 0 && isDateEmpty != 0 && isTimeEmpty != 0 &&
+                    !(isEmailEmpty(chipGroup))) {
+                mApiService.createReunion(reunion);
+                finish();
+            } else {
+                Toast.makeText(AddReuActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(AddReuActivity.this, "Sélectionnez une salle!", Toast.LENGTH_LONG).show();
+        }
+
     }
 
+    private boolean isEmailEmpty(ChipGroup chipGroup) {
+        int hasChild = chipGroup.getChildCount();
+        if (hasChild != 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
+    // Allow horizontal screen for this activity
+    @Override
+    protected void onResume() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        super.onResume();
+    }
 
     String randomImage() {
-        return "https://i.pravatar.cc/150?u="+ System.currentTimeMillis();
+        return "https://i.pravatar.cc/150?u=" + System.currentTimeMillis();
     }
 
     public static void navigate(Activity activity) {

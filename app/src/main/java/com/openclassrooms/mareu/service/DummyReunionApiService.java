@@ -39,25 +39,25 @@ public class DummyReunionApiService implements  ReunionApiService {
 
 
 
-    public class DummyFilterApiService {
-
-        public List<Reunion> locationFilter(List<Reunion> reunionList, String room){
-            List<Reunion> toRemoveList = new ArrayList<>();
-            for (Reunion reunion : reunionList) {
-                if(!reunion.getRoom().equals(room)){
-                    toRemoveList.add(reunion);
-                }
-            }
-            reunionList.removeAll(toRemoveList);
-            return reunionList;
-        }
-
+//    private List<Reunion> roomFilter(){
+//
+//        public List<Reunion> locationFilter(List<Reunion> listReunion, String room){
+//            List<Reunion> toRemoveList = new ArrayList<>();
+//            for (Reunion reunion : listReunion) {
+//                if(!reunion.getRoom().equals(room)){
+//                    toRemoveList.add(reunion);
+//                }
+//            }
+//            listReunion.removeAll(toRemoveList);
+//            return listReunion;
+//        }
+//
 //        public List<Reunion> dateFilter(List<Reunion> reunionList, Date date){
 //
 //
 //        }
-
-    }
+//
+//    }
 
     @Override
     public Reunion getReunionbyid(long id) {
