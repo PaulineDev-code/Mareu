@@ -20,9 +20,9 @@
 
         <ImageView
             android:id="@+id/color"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="0dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"/>
 
         <com.google.android.material.textfield.TextInputLayout

@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,6 +23,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -67,6 +71,7 @@ public class AddReuActivity extends AppCompatActivity {
     private TextView timeview;
     private Button addEmailButton;
     private Spinner spinner;
+    private int color;
     private String[] roomsList = {"Mario", "Luigi", "Wario", "Waluigi", "Boo", "DonkeyKong"};
 
 
@@ -85,6 +90,7 @@ public class AddReuActivity extends AppCompatActivity {
         initSpinner();
     }
 
+    /** Button return home **/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -98,8 +104,8 @@ public class AddReuActivity extends AppCompatActivity {
 
     private void init() {
         mNeighbourImage = randomImage();
-        Glide.with(this).load(mNeighbourImage).placeholder(R.drawable.ic_baseline_add_white_24dp)
-                .apply(RequestOptions.circleCropTransform()).into(avatar);
+//        Glide.with(this).load(avatar).placeholder(R.drawable.ic_baseline_add_white_24dp)
+//                .apply(RequestOptions.circleCropTransform()).into(avatar);
         nameInput.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -117,11 +123,40 @@ public class AddReuActivity extends AppCompatActivity {
 
     }
 
+
     private void initSpinner() {
         spinner = findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch(spinner.getSelectedItemPosition()){
+                    case 0:
+                        avatar.setBackgroundColor(getResources().getColor(R.color.colorTransparent));
+                    case 1:
+                        avatar.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                    case 2:
+
+                        avatar.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                    case 3:
+
+                        avatar.setBackgroundColor(getResources().getColor(R.color.colorYellow));
+                    case 4:
+
+                        avatar.setBackgroundColor(getResources().getColor(R.color.colorPurple));
+                    case 5 :
+
+                        avatar.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+                    case 6:
+
+                        avatar.setBackgroundColor(getResources().getColor(R.color.colorBrown));
+
+                    default:
+
+                        avatar.setBackgroundColor(getResources().getColor(R.color.colorTransparent));
+
+                }
 
             }
 
@@ -251,8 +286,8 @@ public class AddReuActivity extends AppCompatActivity {
         if (!(isSpinnerEmpty(spinner))) {
             Reunion reunion = new Reunion(
                     System.currentTimeMillis(),
+                    color,
                     nameInput.getEditText().getText().toString(),
-                    mNeighbourImage,
                     myCalendar.getTime(),
                     spinner.getSelectedItem().toString(),
                     emailInput.getEditText().getText().toString(),

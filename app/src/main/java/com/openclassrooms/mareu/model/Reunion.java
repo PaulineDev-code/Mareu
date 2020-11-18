@@ -1,5 +1,7 @@
 package com.openclassrooms.mareu.model;
 
+import android.graphics.Color;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
@@ -7,14 +9,14 @@ import java.util.Objects;
 public class Reunion {
 
     private long id ;
-    private String color;
+    private int color;
     private String name ;
     private String aboutIt;
     private Date date ;
     private String room ;
     private String email ;
 
-    public Reunion (long id, String color, String name, Date date, String room, String email, String aboutIt){
+    public Reunion (long id, int color, String name, Date date, String room, String email, String aboutIt){
 
         this.id = id;
         this.color = color;
@@ -29,8 +31,8 @@ public class Reunion {
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 
-    public String getColor() { return color; }
-    public void setColor(String color) {this.color = color; }
+    public int getColor() { return color; }
+    public void setColor(int color) {this.color = color; }
 
     public String getName() {
         return name;
