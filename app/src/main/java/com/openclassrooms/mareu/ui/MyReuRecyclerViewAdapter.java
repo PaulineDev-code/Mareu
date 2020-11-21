@@ -2,6 +2,8 @@ package com.openclassrooms.mareu.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +11,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.mareu.R;
+import com.openclassrooms.mareu.events.DeleteReunionEvent;
 import com.openclassrooms.mareu.model.Reunion;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -35,19 +39,17 @@ public class MyReuRecyclerViewAdapter extends RecyclerView.Adapter<MyReuRecycler
                 .inflate(R.layout.fragment_reu, parent, false);
         return new ViewHolder(view);
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Reunion reunion = mReunion.get(position);
         holder.mReunionName.setText(reunion.getName());
-        Glide.with(holder.mReunionAvatar.getContext())
-                .load(reunion.getColor())
-                .apply(RequestOptions.circleCropTransform())
-                .into(holder.mReunionAvatar);
+        holder.mReunionAvatar.setBackgroundResource(reunion.getColor());
 
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                EventBus.getDefault().post(new DeleteReunionEvent(reunion));
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -74,9 +76,12 @@ public class MyReuRecyclerViewAdapter extends RecyclerView.Adapter<MyReuRecycler
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
 
+
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+
         }
     }
+
 }

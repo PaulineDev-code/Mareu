@@ -13,13 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import com.example.mareu.R;
 import com.openclassrooms.mareu.di.DI;
+import com.openclassrooms.mareu.events.DeleteReunionEvent;
 import com.openclassrooms.mareu.model.Reunion;
 
 import java.util.List;
@@ -32,9 +31,12 @@ public class ListReuActivity extends AppCompatActivity {
      */
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-//    @BindView(R.id.container)
-    MyReuRecyclerViewAdapter mAdapter;
+    @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
+//    @BindView(R.id.container)
+
+    MyReuRecyclerViewAdapter mAdapter;
+
 
 
     @Override
@@ -52,12 +54,28 @@ public class ListReuActivity extends AppCompatActivity {
 
     }
     private void initRecyclerView(){
-        mRecyclerView = findViewById(R.id.recyclerview);
         mReunion = DI.getReunionApiService().getReunion();
         this.mAdapter = new MyReuRecyclerViewAdapter(mReunion);
         this.mRecyclerView.setAdapter(this.mAdapter);
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+    private void dateFilter(){
+
+    }
+
+
+    private void roomFilter(){
+
+        switch(onMenuItemSelected())
+
+
+    }
+
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,9 +90,27 @@ public class ListReuActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if(mRecyclerView.getAdapter()!= null)
         this.mRecyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onDeleteReunion(DeleteReunionEvent event) {
+        DI.getReunionApiService().deleteReunion(event.reunion);
+        initRecyclerView();
     }
 }

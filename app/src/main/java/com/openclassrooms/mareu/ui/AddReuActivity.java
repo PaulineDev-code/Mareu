@@ -56,21 +56,23 @@ public class AddReuActivity extends AppCompatActivity {
     ImageView avatar;
     @BindView(R.id.nameLyt)
     TextInputLayout nameInput;
+    @BindView(R.id.spinner)
+    Spinner spinner;
+    @BindView(R.id.datePickerLyt)
+    TextView dateview;
+    @BindView(R.id.timePickerLyt)
+    TextView timeview;
     @BindView(R.id.aboutItLyt)
     TextInputLayout aboutItInput;
     @BindView(R.id.emailLyt)
     TextInputLayout emailInput;
+    @BindView(R.id.add_email_button)
+    Button addEmailButton;
     @BindView(R.id.create)
     MaterialButton addButton;
 
     private ReunionApiService mApiService;
-    private String mNeighbourImage;
-    private DatePicker picker;
     private Calendar myCalendar = Calendar.getInstance();
-    private TextView dateview;
-    private TextView timeview;
-    private Button addEmailButton;
-    private Spinner spinner;
     private int color;
     private String[] roomsList = {"Mario", "Luigi", "Wario", "Waluigi", "Boo", "DonkeyKong"};
 
@@ -103,9 +105,6 @@ public class AddReuActivity extends AppCompatActivity {
     }
 
     private void init() {
-        mNeighbourImage = randomImage();
-//        Glide.with(this).load(avatar).placeholder(R.drawable.ic_baseline_add_white_24dp)
-//                .apply(RequestOptions.circleCropTransform()).into(avatar);
         nameInput.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -125,38 +124,39 @@ public class AddReuActivity extends AppCompatActivity {
 
 
     private void initSpinner() {
-        spinner = findViewById(R.id.spinner);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch(spinner.getSelectedItemPosition()){
-                    case 0:
-                        avatar.setBackgroundColor(getResources().getColor(R.color.colorTransparent));
+
                     case 1:
-                        avatar.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                        color = R.color.colorRed;
+                        break;
                     case 2:
-
-                        avatar.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                        color = R.color.colorGreen;
+                        break;
                     case 3:
-
-                        avatar.setBackgroundColor(getResources().getColor(R.color.colorYellow));
+                        color = R.color.colorYellow;
+                        break;
                     case 4:
-
-                        avatar.setBackgroundColor(getResources().getColor(R.color.colorPurple));
+                        color = R.color.colorPurple;
+                        break;
                     case 5 :
-
-                        avatar.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+                        color = R.color.colorGreyWhite;
+                        break;
                     case 6:
-
-                        avatar.setBackgroundColor(getResources().getColor(R.color.colorBrown));
+                        color = R.color.colorBrown;
+                        break;
 
                     default:
-
-                        avatar.setBackgroundColor(getResources().getColor(R.color.colorTransparent));
+                        color = R.color.colorTransparent;
+                        break;
 
                 }
+                avatar.setBackgroundColor(getResources().getColor(color));
 
             }
 
@@ -180,7 +180,6 @@ public class AddReuActivity extends AppCompatActivity {
 
     private void getDate() {
 
-        dateview = findViewById(R.id.datePickerLyt);
         DatePickerDialog.OnDateSetListener date = (datePicker, year, monthOfYear, dayOfMonth) -> {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
@@ -208,7 +207,6 @@ public class AddReuActivity extends AppCompatActivity {
 
     private void getTime() {
 
-        timeview = findViewById(R.id.timePickerLyt);
         TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
@@ -245,7 +243,7 @@ public class AddReuActivity extends AppCompatActivity {
     }
 
     private void setAddEmailButton() {
-        addEmailButton = findViewById(R.id.add_email_button);
+
         addEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -329,9 +327,6 @@ public class AddReuActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    String randomImage() {
-        return "https://i.pravatar.cc/150?u=" + System.currentTimeMillis();
-    }
 
     public static void navigate(Activity activity) {
         Intent intent = new Intent(activity, AddReuActivity.class);
