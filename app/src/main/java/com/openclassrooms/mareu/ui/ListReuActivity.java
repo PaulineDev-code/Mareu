@@ -98,17 +98,14 @@ public class ListReuActivity extends AppCompatActivity {
         Calendar myCalendar = Calendar.getInstance();
         Button buttonOK ;
 
-        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
 
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                mReunion = mApiService.dateFilter(myCalendar.getTime());
-                mAdapter.setData(mReunion);
-            }
+            mReunion = mApiService.dateFilter(myCalendar.getTime());
+            mAdapter.setData(mReunion);
         };
 
 
