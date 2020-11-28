@@ -3,6 +3,7 @@ package com.openclassrooms.mareu.service;
 
 import com.openclassrooms.mareu.model.Reunion;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,4 +21,8 @@ public interface ReunionApiService {
 
     void createReunion(Reunion reunion);
     Reunion getReunionbyid(long id);
+
+    List<Reunion> filterRoom(String filteredRoom);
+
+    List<Reunion>  dateFilter(Date date);
 }

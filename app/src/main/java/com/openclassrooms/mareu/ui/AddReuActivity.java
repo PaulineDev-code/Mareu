@@ -193,8 +193,6 @@ public class AddReuActivity extends AppCompatActivity {
                     myCalendar.get(Calendar.DAY_OF_MONTH));
             myDatePicker.show();
 
-
-
         });
     }
 
@@ -290,6 +288,7 @@ public class AddReuActivity extends AppCompatActivity {
                     spinner.getSelectedItem().toString(),
                     emailInput.getEditText().getText().toString(),
                     aboutItInput.getEditText().getText().toString()
+
 
             );
             int isRoomEmpty = spinner.getSelectedItem().toString().length();

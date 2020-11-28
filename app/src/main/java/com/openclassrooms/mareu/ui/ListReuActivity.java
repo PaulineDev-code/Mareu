@@ -1,10 +1,16 @@
 package com.openclassrooms.mareu.ui;
 
 
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,11 +26,19 @@ import com.example.mareu.R;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.events.DeleteReunionEvent;
 import com.openclassrooms.mareu.model.Reunion;
+import com.openclassrooms.mareu.service.ReunionApiService;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Locale;
 
 public class ListReuActivity extends AppCompatActivity {
-    private List<Reunion> mReunion;
+
 
     /**
      * UI Components
@@ -36,6 +50,9 @@ public class ListReuActivity extends AppCompatActivity {
 //    @BindView(R.id.container)
 
     MyReuRecyclerViewAdapter mAdapter;
+    ReunionApiService mApiService = DI.getReunionApiService();
+    private List<Reunion> mReunion = new ArrayList<>();
+    private Date dateForFilter = new Date();
 
 
 
@@ -54,26 +71,11 @@ public class ListReuActivity extends AppCompatActivity {
 
     }
     private void initRecyclerView(){
-        mReunion = DI.getReunionApiService().getReunion();
+        mReunion = mApiService.getReunion();
         this.mAdapter = new MyReuRecyclerViewAdapter(mReunion);
         this.mRecyclerView.setAdapter(this.mAdapter);
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
-
-    private void dateFilter(){
-
-    }
-
-
-    private void roomFilter(){
-
-        switch(onMenuItemSelected())
-
-
-    }
-
-
-
 
 
 
@@ -83,9 +85,98 @@ public class ListReuActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+//    private void updateLabelDate() {
+//        String myFormat = "dd/MM/YY";
+//        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+//
+//        sdf.format(myCalendar.getTime());
+//    }
+
+
+
+    private void getDatePicker() {
+        Calendar myCalendar = Calendar.getInstance();
+        Button buttonOK ;
+
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                mReunion = mApiService.dateFilter(myCalendar.getTime());
+                mAdapter.setData(mReunion);
+            }
+        };
+
+
+
+
+
+
+
+            DatePickerDialog myDatePicker = new DatePickerDialog(ListReuActivity.this, R.style.DialogTheme, date, myCalendar
+                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                    myCalendar.get(Calendar.DAY_OF_MONTH));
+            myDatePicker.show();
+
+
+//        buttonOK = myDatePicker.getButton(DialogInterface.BUTTON_POSITIVE);
+//        buttonOK.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dateForFilter = myCalendar.getTime();
+//                myDatePicker.dismiss();
+//                mReunion= mApiService.dateFilter(dateForFilter);
+//                mAdapter.setData(mReunion);
+//
+//            }
+//        });
+
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId())  {
+            case R.id.date_filter:
+                getDatePicker();
+                break;
+            case R.id.filter_room_1:
+                mReunion = mApiService.filterRoom( "Mario");
+                mAdapter.setData(mReunion);
+                break;
+            case  R.id.filter_room_2:
+                mReunion = mApiService.filterRoom("Luigi");
+                mAdapter.setData(mReunion);
+                break;
+            case  R.id.filter_room_3:
+                mReunion = mApiService.filterRoom("Wario");
+                mAdapter.setData(mReunion);
+                break;
+            case  R.id.filter_room_4:
+                mReunion = mApiService.filterRoom("Waluigi");
+                mAdapter.setData(mReunion);
+                break;
+            case  R.id.filter_room_5:
+                mReunion = mApiService.filterRoom("Boo");
+                mAdapter.setData(mReunion);
+                break;
+            case  R.id.filter_room_6:
+                mReunion = mApiService.filterRoom("DonkeyKong");
+                mAdapter.setData(mReunion);
+                break;
+            case R.id.filter_none:
+                mReunion = mApiService.getReunion();
+                mAdapter.setData(mReunion);
+                break;
+
+            default:
+
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -110,7 +201,7 @@ public class ListReuActivity extends AppCompatActivity {
 
     @Subscribe
     public void onDeleteReunion(DeleteReunionEvent event) {
-        DI.getReunionApiService().deleteReunion(event.reunion);
+        mApiService.deleteReunion(event.reunion);
         initRecyclerView();
     }
 }

@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 
 public class MyReuRecyclerViewAdapter extends RecyclerView.Adapter<MyReuRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Reunion> mReunion ;
+    private List<Reunion> mReunion ;
 
     public MyReuRecyclerViewAdapter(List<Reunion> items) {
         mReunion = items;
@@ -83,5 +83,9 @@ public class MyReuRecyclerViewAdapter extends RecyclerView.Adapter<MyReuRecycler
 
         }
     }
-
+    /** Update mReunion **/
+    void setData(List<Reunion> list){
+        this.mReunion = list;
+        notifyDataSetChanged();
+    }
 }
