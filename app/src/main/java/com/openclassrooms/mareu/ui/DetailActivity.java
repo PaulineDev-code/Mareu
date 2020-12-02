@@ -21,18 +21,32 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.model.Reunion;
 
+import butterknife.BindView;
 
 
 public class DetailActivity extends AppCompatActivity {
 
+    @BindView(R.id.image_view)
+    ImageView imageView;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.aboutIt)
+    TextView aboutIt;
+    @BindView(R.id.heure)
+    TextView heure;
+    @BindView(R.id.lieu)
+    TextView room;
+    @BindView(R.id.email)
+    TextView email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        CollapsingToolbarLayout backGround = findViewById(R.id.toolbar_layout);
+        CollapsingToolbarLayout backGround = findViewById(R.id.toolbar_layout);
 //        ImageView image_view = findViewById(R.id.image_view);
         long id = getIntent().getLongExtra("id", -1);
         Reunion reunion = DI.getReunionApiService().getReunionbyid(id);
@@ -55,22 +69,18 @@ public class DetailActivity extends AppCompatActivity {
 //        Glide.with(this).load(reunion.getColor()).into(image_view);
 
 
-        TextView DetailName = findViewById(R.id.name);
-        DetailName.setText(reunion.getName());
-        DetailName.setTextSize(25);
-        DetailName.setTextColor(0xFF000000);
-
-        TextView DetailAboutIt = findViewById(R.id.aboutIt);
+        name.setText(reunion.getName());
+        name.setTextSize(25);
+        name.setTextColor(0xFF000000);
 
 
-        TextView DetailAboutMe = findViewById(R.id.heure);
-        DetailAboutMe.setText(reunion.getDate().toString());
 
-        TextView DetailAddress = findViewById(R.id.lieu);
-        DetailAddress.setText(reunion.getRoom());
 
-        TextView DetailPhone = findViewById(R.id.email);
-        DetailPhone.setText(reunion.getEmail());
+        heure.setText(reunion.getDate().toString());
+
+        room.setText(reunion.getRoom());
+
+        email.setText(reunion.getEmail());
 
 
     }

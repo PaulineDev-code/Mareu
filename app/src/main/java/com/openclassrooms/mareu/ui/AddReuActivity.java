@@ -127,7 +127,6 @@ public class AddReuActivity extends AppCompatActivity {
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch(spinner.getSelectedItemPosition()){
@@ -156,7 +155,7 @@ public class AddReuActivity extends AppCompatActivity {
                         break;
 
                 }
-                avatar.setBackgroundColor(getResources().getColor(color));
+                avatar.setColorFilter(getResources().getColor(color));
 
             }
 

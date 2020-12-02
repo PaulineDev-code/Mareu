@@ -72,7 +72,7 @@ public class ListReuActivity extends AppCompatActivity {
     }
     private void initRecyclerView(){
         mReunion = mApiService.getReunion();
-        this.mAdapter = new MyReuRecyclerViewAdapter(mReunion);
+        this.mAdapter = new MyReuRecyclerViewAdapter(mReunion, this);
         this.mRecyclerView.setAdapter(this.mAdapter);
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

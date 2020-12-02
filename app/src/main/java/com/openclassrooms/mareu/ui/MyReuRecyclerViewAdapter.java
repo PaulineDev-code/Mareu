@@ -3,6 +3,7 @@ package com.openclassrooms.mareu.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareu.R;
@@ -28,9 +30,11 @@ import butterknife.ButterKnife;
 public class MyReuRecyclerViewAdapter extends RecyclerView.Adapter<MyReuRecyclerViewAdapter.ViewHolder> {
 
     private List<Reunion> mReunion ;
+    Context context ;
 
-    public MyReuRecyclerViewAdapter(List<Reunion> items) {
+    public MyReuRecyclerViewAdapter(List<Reunion> items, Context context) {
         mReunion = items;
+        this.context = context;
     }
 
     @Override
@@ -39,12 +43,12 @@ public class MyReuRecyclerViewAdapter extends RecyclerView.Adapter<MyReuRecycler
                 .inflate(R.layout.fragment_reu, parent, false);
         return new ViewHolder(view);
     }
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Reunion reunion = mReunion.get(position);
         holder.mReunionName.setText(reunion.getName());
-        holder.mReunionAvatar.setBackgroundResource(reunion.getColor());
+        holder.mReunionAvatar.setColorFilter(context.getResources().getColor(reunion.getColor()));
 
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
