@@ -22,7 +22,9 @@ import com.openclassrooms.mareu.model.Reunion;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,10 +48,13 @@ public class MyReuRecyclerViewAdapter extends RecyclerView.Adapter<MyReuRecycler
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH'h'mm", Locale.FRANCE);
         Reunion reunion = mReunion.get(position);
         holder.mReunionName.setText(reunion.getName());
         holder.mReunionAvatar.setColorFilter(context.getResources().getColor(reunion.getColor()));
-
+        holder.mReunionDate.setText(sdf.format(reunion.getDate()));
+        holder.mReunionRoom.setText(reunion.getRoom());
+        holder.mReunionEmails.setText(reunion.getEmail());
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +84,12 @@ public class MyReuRecyclerViewAdapter extends RecyclerView.Adapter<MyReuRecycler
         public TextView mReunionName;
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
+        @BindView(R.id.item_list_date)
+        public TextView mReunionDate;
+        @BindView(R.id.item_list_room)
+        public TextView mReunionRoom;
+        @BindView(R.id.item_list_emails)
+        public TextView mReunionEmails;
 
 
         public ViewHolder(View view) {

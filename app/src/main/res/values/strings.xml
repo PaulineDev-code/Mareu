@@ -10,5 +10,6 @@
     <string name="salle_boo">Salle Boo</string>
     <string name="salle_donkeykong">Salle DonkeyKong</string>
     <string name="no_filter">No Filter</string>
+    <string name="pas_de_reunion">Il n\'y a pas de réunion à afficher!</string>
 
 </resources>

@@ -42,6 +42,7 @@ import com.openclassrooms.mareu.model.Reunion;
 import com.openclassrooms.mareu.service.ReunionApiService;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -75,6 +76,8 @@ public class AddReuActivity extends AppCompatActivity {
     private Calendar myCalendar = Calendar.getInstance();
     private int color;
     private String[] roomsList = {"Mario", "Luigi", "Wario", "Waluigi", "Boo", "DonkeyKong"};
+    private ArrayList<String> emails = new ArrayList<>();
+
 
 
     @Override
@@ -86,11 +89,15 @@ public class AddReuActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         mApiService = DI.getReunionApiService();
         init();
+        avatar.getLayoutParams().height = 200;
+        avatar.getLayoutParams().width = 200;
         getDate();
         getTime();
         setAddEmailButton();
         initSpinner();
     }
+
+
 
     /** Button return home **/
     @Override
@@ -247,6 +254,7 @@ public class AddReuActivity extends AppCompatActivity {
                 final TextInputEditText email = findViewById(R.id.email);
                 final ChipGroup chipGroup = findViewById(R.id.chip_group);
 
+
                 final Chip chip = new Chip(AddReuActivity.this);
                 ChipDrawable drawable = ChipDrawable.createFromAttributes(AddReuActivity.this, null,
                         0, R.style.Widget_MaterialComponents_Chip_Entry);
@@ -257,6 +265,7 @@ public class AddReuActivity extends AppCompatActivity {
                 chip.setIconStartPadding(3f);
                 chip.setPadding(60, 10, 60, 10);
                 chip.setText(email.getText().toString());
+
 
                 chip.setOnCloseIconClickListener(new View.OnClickListener() {
                     @Override
@@ -269,6 +278,7 @@ public class AddReuActivity extends AppCompatActivity {
                     email.setText("");
                 } else {
                     chipGroup.addView(chip);
+                    emails.add(email.getText().toString());
                     email.setText("");
                 }
             }
@@ -285,7 +295,7 @@ public class AddReuActivity extends AppCompatActivity {
                     nameInput.getEditText().getText().toString(),
                     myCalendar.getTime(),
                     spinner.getSelectedItem().toString(),
-                    emailInput.getEditText().getText().toString(),
+                    emails.toString(),
                     aboutItInput.getEditText().getText().toString()
 
 

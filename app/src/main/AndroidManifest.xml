@@ -23,7 +23,6 @@
         <activity
             android:name="com.openclassrooms.mareu.ui.DetailActivity"
             android:label="Detail view of a reunion"/>
-
     </application>
 
 </manifest>

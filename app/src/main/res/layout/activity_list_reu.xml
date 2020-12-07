@@ -36,6 +36,14 @@
         tools:context="com.openclassrooms.mareu.ui.ListReuActivity"
         tools:listitem="@layout/fragment_reu" />
 
+    <TextView
+        android:id="@+id/recycler_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/pas_de_reunion"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_reu"
         android:layout_width="wrap_content"

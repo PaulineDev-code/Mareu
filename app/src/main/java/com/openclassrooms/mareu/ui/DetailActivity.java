@@ -1,5 +1,6 @@
 package com.openclassrooms.mareu.ui;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -22,36 +23,40 @@ import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.model.Reunion;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class DetailActivity extends AppCompatActivity {
 
     @BindView(R.id.image_view)
     ImageView imageView;
-    @BindView(R.id.toolbar)
+    @BindView(R.id.detail_toolbar)
     Toolbar toolbar;
-    @BindView(R.id.name)
+    @BindView(R.id.detail_name)
     TextView name;
-    @BindView(R.id.aboutIt)
+    @BindView(R.id.detail_aboutIt)
     TextView aboutIt;
-    @BindView(R.id.heure)
-    TextView heure;
-    @BindView(R.id.lieu)
+    @BindView(R.id.detail_date)
+    TextView date;
+    @BindView(R.id.detail_room)
     TextView room;
-    @BindView(R.id.email)
+    @BindView(R.id.detail_email)
     TextView email;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        CollapsingToolbarLayout backGround = findViewById(R.id.toolbar_layout);
-//        ImageView image_view = findViewById(R.id.image_view);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         long id = getIntent().getLongExtra("id", -1);
         Reunion reunion = DI.getReunionApiService().getReunionbyid(id);
-        getSupportActionBar().setTitle(reunion.getName());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        imageView.setColorFilter(getResources().getColor(reunion.getColor()));
+
 
 
 //        Glide.with(this).asBitmap().load(neighbour.getAvatarUrl()).into(new CustomTarget<Bitmap>() {
@@ -76,11 +81,13 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
-        heure.setText(reunion.getDate().toString());
+        date.setText(reunion.getDate().toString());
 
         room.setText(reunion.getRoom());
 
         email.setText(reunion.getEmail());
+
+        aboutIt.setText(reunion.getAboutIt());
 
 
     }

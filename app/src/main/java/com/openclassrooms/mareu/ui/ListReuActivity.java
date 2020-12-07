@@ -3,7 +3,9 @@ package com.openclassrooms.mareu.ui;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +43,7 @@ import java.util.Locale;
 public class ListReuActivity extends AppCompatActivity {
 
 
+    private static final String TAG = "cycle";
     /**
      * UI Components
      */
@@ -47,13 +51,13 @@ public class ListReuActivity extends AppCompatActivity {
     Toolbar mToolbar;
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
-//    @BindView(R.id.container)
+    @BindView(R.id.recycler_empty)
+    TextView viewEmpty;
 
     MyReuRecyclerViewAdapter mAdapter;
     ReunionApiService mApiService = DI.getReunionApiService();
     private List<Reunion> mReunion = new ArrayList<>();
     private Date dateForFilter = new Date();
-
 
 
     @Override
@@ -63,6 +67,7 @@ public class ListReuActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         initRecyclerView();
+        recyclerEmpty();
     }
 
     @OnClick(R.id.add_reu)
@@ -77,7 +82,16 @@ public class ListReuActivity extends AppCompatActivity {
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-
+    private void recyclerEmpty(){
+        if(mAdapter.getItemCount() == 0){
+            viewEmpty.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+        }
+        else{
+            viewEmpty.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,14 +99,6 @@ public class ListReuActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-//    private void updateLabelDate() {
-//        String myFormat = "dd/MM/YY";
-//        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
-//
-//        sdf.format(myCalendar.getTime());
-//    }
-
-
 
     private void getDatePicker() {
         Calendar myCalendar = Calendar.getInstance();
@@ -106,32 +112,13 @@ public class ListReuActivity extends AppCompatActivity {
 
             mReunion = mApiService.dateFilter(myCalendar.getTime());
             mAdapter.setData(mReunion);
+            recyclerEmpty();
         };
-
-
-
-
-
-
 
             DatePickerDialog myDatePicker = new DatePickerDialog(ListReuActivity.this, R.style.DialogTheme, date, myCalendar
                     .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                     myCalendar.get(Calendar.DAY_OF_MONTH));
             myDatePicker.show();
-
-
-//        buttonOK = myDatePicker.getButton(DialogInterface.BUTTON_POSITIVE);
-//        buttonOK.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dateForFilter = myCalendar.getTime();
-//                myDatePicker.dismiss();
-//                mReunion= mApiService.dateFilter(dateForFilter);
-//                mAdapter.setData(mReunion);
-//
-//            }
-//        });
-
 
     }
 
@@ -145,30 +132,37 @@ public class ListReuActivity extends AppCompatActivity {
             case R.id.filter_room_1:
                 mReunion = mApiService.filterRoom( "Mario");
                 mAdapter.setData(mReunion);
+                recyclerEmpty();
                 break;
             case  R.id.filter_room_2:
                 mReunion = mApiService.filterRoom("Luigi");
                 mAdapter.setData(mReunion);
+                recyclerEmpty();
                 break;
             case  R.id.filter_room_3:
                 mReunion = mApiService.filterRoom("Wario");
                 mAdapter.setData(mReunion);
+                recyclerEmpty();
                 break;
             case  R.id.filter_room_4:
                 mReunion = mApiService.filterRoom("Waluigi");
                 mAdapter.setData(mReunion);
+                recyclerEmpty();
                 break;
             case  R.id.filter_room_5:
                 mReunion = mApiService.filterRoom("Boo");
                 mAdapter.setData(mReunion);
+                recyclerEmpty();
                 break;
             case  R.id.filter_room_6:
                 mReunion = mApiService.filterRoom("DonkeyKong");
                 mAdapter.setData(mReunion);
+                recyclerEmpty();
                 break;
             case R.id.filter_none:
                 mReunion = mApiService.getReunion();
                 mAdapter.setData(mReunion);
+                recyclerEmpty();
                 break;
 
             default:
@@ -181,6 +175,7 @@ public class ListReuActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        Log.d(TAG, "start log");
     }
 
     @Override
@@ -188,12 +183,20 @@ public class ListReuActivity extends AppCompatActivity {
         super.onResume();
         if(mRecyclerView.getAdapter()!= null)
         this.mRecyclerView.getAdapter().notifyDataSetChanged();
+        recyclerEmpty();
+        Log.d(TAG, "resume log");
     }
 
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "restart log");
+    }
     @Override
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+        Log.d(TAG, "stop log");
     }
 
     @Subscribe
