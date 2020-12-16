@@ -15,7 +15,7 @@ import static java.util.Calendar.DAY_OF_MONTH;
  */
 public class DummyReunionApiService implements  ReunionApiService {
 
-    private List<Reunion> listReunion = new ArrayList<>();
+    private List<Reunion> listReunion = DummyReunionGenerator.generateReunions();
 
 
     /**
@@ -69,7 +69,6 @@ public class DummyReunionApiService implements  ReunionApiService {
                 boolean sameDate = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                                    cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
                                    cal1.get(DAY_OF_MONTH) == cal2.get(DAY_OF_MONTH);
-
 
                 if(sameDate){
 

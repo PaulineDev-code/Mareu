@@ -67,7 +67,7 @@ public class ListReuActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         initRecyclerView();
-        recyclerEmpty();
+        showEmptyView();
     }
 
     @OnClick(R.id.add_reu)
@@ -82,7 +82,7 @@ public class ListReuActivity extends AppCompatActivity {
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void recyclerEmpty(){
+    private void showEmptyView(){
         if(mAdapter.getItemCount() == 0){
             viewEmpty.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.GONE);
@@ -112,7 +112,7 @@ public class ListReuActivity extends AppCompatActivity {
 
             mReunion = mApiService.dateFilter(myCalendar.getTime());
             mAdapter.setData(mReunion);
-            recyclerEmpty();
+            showEmptyView();
         };
 
             DatePickerDialog myDatePicker = new DatePickerDialog(ListReuActivity.this, R.style.DialogTheme, date, myCalendar
@@ -132,37 +132,37 @@ public class ListReuActivity extends AppCompatActivity {
             case R.id.filter_room_1:
                 mReunion = mApiService.filterRoom( "Mario");
                 mAdapter.setData(mReunion);
-                recyclerEmpty();
+                showEmptyView();
                 break;
             case  R.id.filter_room_2:
                 mReunion = mApiService.filterRoom("Luigi");
                 mAdapter.setData(mReunion);
-                recyclerEmpty();
+                showEmptyView();
                 break;
             case  R.id.filter_room_3:
                 mReunion = mApiService.filterRoom("Wario");
                 mAdapter.setData(mReunion);
-                recyclerEmpty();
+                showEmptyView();
                 break;
             case  R.id.filter_room_4:
                 mReunion = mApiService.filterRoom("Waluigi");
                 mAdapter.setData(mReunion);
-                recyclerEmpty();
+                showEmptyView();
                 break;
             case  R.id.filter_room_5:
                 mReunion = mApiService.filterRoom("Boo");
                 mAdapter.setData(mReunion);
-                recyclerEmpty();
+                showEmptyView();
                 break;
             case  R.id.filter_room_6:
                 mReunion = mApiService.filterRoom("DonkeyKong");
                 mAdapter.setData(mReunion);
-                recyclerEmpty();
+                showEmptyView();
                 break;
             case R.id.filter_none:
                 mReunion = mApiService.getReunion();
                 mAdapter.setData(mReunion);
-                recyclerEmpty();
+                showEmptyView();
                 break;
 
             default:
@@ -183,7 +183,7 @@ public class ListReuActivity extends AppCompatActivity {
         super.onResume();
         if(mRecyclerView.getAdapter()!= null)
         this.mRecyclerView.getAdapter().notifyDataSetChanged();
-        recyclerEmpty();
+        showEmptyView();
         Log.d(TAG, "resume log");
     }
 

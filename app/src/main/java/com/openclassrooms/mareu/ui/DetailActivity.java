@@ -22,6 +22,10 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.model.Reunion;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -51,7 +55,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         long id = getIntent().getLongExtra("id", -1);
         Reunion reunion = DI.getReunionApiService().getReunionbyid(id);
@@ -80,14 +84,14 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH'h'mm", Locale.FRANCE);
+        date.setText(sdf.format(reunion.getDate()));
 
-        date.setText(reunion.getDate().toString());
+        room.setText("Salle: "+ reunion.getRoom());
 
-        room.setText(reunion.getRoom());
+        email.setText("Emails: "+ reunion.getEmail());
 
-        email.setText(reunion.getEmail());
-
-        aboutIt.setText(reunion.getAboutIt());
+        aboutIt.setText("À propos: "+ reunion.getAboutIt());
 
 
     }

@@ -17,7 +17,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/detail_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             app:title="@string/app_name"
@@ -26,7 +26,7 @@
 
         <ImageView
             android:id="@+id/image_view"
-            android:src="@drawable/custom_circle"
+            android:src="@drawable/custom_circle_100dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -79,7 +79,9 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorPrimaryDark"/>
 
 
                 <TextView
@@ -89,7 +91,9 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorPrimaryDark"/>
 
 
             </LinearLayout>
@@ -115,7 +119,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimaryDark"
                 />
 
         </androidx.cardview.widget.CardView>
@@ -137,7 +142,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimaryDark"/>
 
 
         </androidx.cardview.widget.CardView>

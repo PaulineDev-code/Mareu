@@ -2,9 +2,6 @@ package com.openclassrooms.mareu.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +9,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareu.R;
@@ -42,34 +37,26 @@ public class MyReuRecyclerViewAdapter extends RecyclerView.Adapter<MyReuRecycler
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_reu, parent, false);
+                .inflate(R.layout.item_recycler_view, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH'h'mm", Locale.FRANCE);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH'h'mm", Locale.FRANCE);
         Reunion reunion = mReunion.get(position);
         holder.mReunionName.setText(reunion.getName());
         holder.mReunionAvatar.setColorFilter(context.getResources().getColor(reunion.getColor()));
         holder.mReunionDate.setText(sdf.format(reunion.getDate()));
         holder.mReunionRoom.setText(reunion.getRoom());
         holder.mReunionEmails.setText(reunion.getEmail());
-        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new DeleteReunionEvent(reunion));
-            }
-        });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context ctx = holder.itemView.getContext();
-                Intent intent = new Intent(ctx, DetailActivity.class);
-                intent.putExtra("id" , reunion.getId());
-                ctx.startActivity(intent);
+        holder.mDeleteButton.setOnClickListener(v -> EventBus.getDefault().post(new DeleteReunionEvent(reunion)));
+        holder.itemView.setOnClickListener(view -> {
+            Context ctx = holder.itemView.getContext();
+            Intent intent = new Intent(ctx, DetailActivity.class);
+            intent.putExtra("id" , reunion.getId());
+            ctx.startActivity(intent);
 
-            }
         });
     }
     @Override

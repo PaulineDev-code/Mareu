@@ -69,6 +69,10 @@ public class AddReuActivity extends AppCompatActivity {
     TextInputLayout emailInput;
     @BindView(R.id.add_email_button)
     Button addEmailButton;
+    @BindView(R.id.chip_group)
+    ChipGroup chipGroup;
+    @BindView(R.id.email)
+    TextInputEditText email;
     @BindView(R.id.create)
     MaterialButton addButton;
 
@@ -203,7 +207,7 @@ public class AddReuActivity extends AppCompatActivity {
     }
 
     private void updateLabelDate() {
-        String myFormat = "dd/MM/YY";
+        String myFormat = "dd/MM/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
         dateview.setText(sdf.format(myCalendar.getTime()));
@@ -246,14 +250,21 @@ public class AddReuActivity extends AppCompatActivity {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    private void isEmailValid(Chip chip){
+        if (!emailValid(email.getText().toString())) {
+            Toast.makeText(AddReuActivity.this, "Rentrez un email valide", Toast.LENGTH_SHORT).show();
+        } else {
+            chipGroup.addView(chip);
+            emails.add(email.getText().toString());
+        }
+        email.setText("");
+    }
+
     private void setAddEmailButton() {
 
         addEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final TextInputEditText email = findViewById(R.id.email);
-                final ChipGroup chipGroup = findViewById(R.id.chip_group);
-
 
                 final Chip chip = new Chip(AddReuActivity.this);
                 ChipDrawable drawable = ChipDrawable.createFromAttributes(AddReuActivity.this, null,
@@ -265,26 +276,12 @@ public class AddReuActivity extends AppCompatActivity {
                 chip.setIconStartPadding(3f);
                 chip.setPadding(60, 10, 60, 10);
                 chip.setText(email.getText().toString());
+                chip.setOnCloseIconClickListener(view1 -> chipGroup.removeView(chip));
 
-
-                chip.setOnCloseIconClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        chipGroup.removeView(chip);
-                    }
-                });
-                if (!emailValid(email.getText().toString())) {
-                    Toast.makeText(AddReuActivity.this, "Rentrez un email valide", Toast.LENGTH_SHORT).show();
-                    email.setText("");
-                } else {
-                    chipGroup.addView(chip);
-                    emails.add(email.getText().toString());
-                    email.setText("");
-                }
+                isEmailValid(chip);
             }
         });
     }
-
 
     @OnClick(R.id.create)
     void addReu() {

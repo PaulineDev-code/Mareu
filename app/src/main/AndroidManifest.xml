@@ -22,7 +22,9 @@
             android:theme="@style/AppTheme"/>
         <activity
             android:name="com.openclassrooms.mareu.ui.DetailActivity"
-            android:label="Detail view of a reunion"/>
+            android:label="Detail view of a reunion"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
     </application>
 
 </manifest>

@@ -22,10 +22,10 @@
 
         <ImageView
             android:id="@+id/color"
-            android:src="@drawable/custom_circle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:src="@drawable/custom_circle_100dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
             android:layout_gravity="center_horizontal"
              />
 
@@ -35,7 +35,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/name"
@@ -51,14 +51,14 @@
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:layout_marginBottom="5dp">
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp">
         </Spinner>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal">
 
         <TextView
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:padding="16dp"
             android:background="@drawable/custom_date_background"
             android:clickable="true"
             android:inputType="none"
@@ -78,9 +78,9 @@
             android:id="@+id/timePickerLyt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="8dp"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:padding="16dp"
             android:background="@drawable/custom_date_background"
             android:clickable="true"
             android:inputType="none"
@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:layout_marginTop="18dp">
+            android:layout_marginTop="16dp">
 
 
             <com.google.android.material.textfield.TextInputEditText
@@ -119,9 +119,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="16dp"
                 android:text="Ajouter"
-                android:textSize="12dp">
+                android:textSize="12sp">
             </Button>
 
         </LinearLayout>
@@ -137,7 +137,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp">
+            android:layout_marginTop="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/aboutIt"
@@ -158,7 +158,7 @@
             android:enabled="false"
             android:layout_gravity="center"
             app:cornerRadius="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="24dp"
             android:text="Save"/>
 
     </LinearLayout>
