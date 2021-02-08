@@ -5,8 +5,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,20 +14,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.ColorRes;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.mareu.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
@@ -44,7 +37,6 @@ import com.openclassrooms.mareu.service.ReunionApiService;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -60,9 +52,9 @@ public class AddReuActivity extends AppCompatActivity {
     @BindView(R.id.spinner)
     Spinner spinner;
     @BindView(R.id.datePickerLyt)
-    TextView dateview;
+    TextView dateView;
     @BindView(R.id.timePickerLyt)
-    TextView timeview;
+    TextView timeView;
     @BindView(R.id.aboutItLyt)
     TextInputLayout aboutItInput;
     @BindView(R.id.emailLyt)
@@ -93,8 +85,6 @@ public class AddReuActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         mApiService = DI.getReunionApiService();
         init();
-        avatar.getLayoutParams().height = 200;
-        avatar.getLayoutParams().width = 200;
         getDate();
         getTime();
         setAddEmailButton();
@@ -197,7 +187,7 @@ public class AddReuActivity extends AppCompatActivity {
             updateLabelDate();
         };
 
-        dateview.setOnClickListener(view -> {
+        dateView.setOnClickListener(view -> {
             DatePickerDialog myDatePicker = new DatePickerDialog(AddReuActivity.this, R.style.DialogTheme, date, myCalendar
                     .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                     myCalendar.get(Calendar.DAY_OF_MONTH));
@@ -210,7 +200,7 @@ public class AddReuActivity extends AppCompatActivity {
         String myFormat = "dd/MM/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
-        dateview.setText(sdf.format(myCalendar.getTime()));
+        dateView.setText(sdf.format(myCalendar.getTime()));
     }
 
     private void getTime() {
@@ -225,7 +215,7 @@ public class AddReuActivity extends AppCompatActivity {
             }
         };
 
-        timeview.setOnClickListener(new View.OnClickListener() {
+        timeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new TimePickerDialog(AddReuActivity.this, R.style.DialogTheme, time,
@@ -240,7 +230,7 @@ public class AddReuActivity extends AppCompatActivity {
         String myFormat = "HH 'h' mm";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
-        timeview.setText(sdf.format(myCalendar.getTime()));
+        timeView.setText(sdf.format(myCalendar.getTime()));
 
     }
 
@@ -299,8 +289,8 @@ public class AddReuActivity extends AppCompatActivity {
             );
             int isRoomEmpty = spinner.getSelectedItem().toString().length();
             int isAboutItEmpty = aboutItInput.getEditText().getText().toString().length();
-            int isDateEmpty = dateview.getText().toString().length();
-            int isTimeEmpty = timeview.getText().toString().length();
+            int isDateEmpty = dateView.getText().toString().length();
+            int isTimeEmpty = timeView.getText().toString().length();
             final ChipGroup chipGroup = findViewById(R.id.chip_group);
 
             if (!(isSpinnerEmpty(spinner)) && isAboutItEmpty != 0 && isDateEmpty != 0 && isTimeEmpty != 0 &&

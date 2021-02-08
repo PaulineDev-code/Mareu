@@ -66,11 +66,11 @@ public class DetailActivityTest {
         textView3.check(matches(withText("Salle: Wario")));
 
         ViewInteraction textView4 = onView(
-                allOf(withId(R.id.detail_email), withText("Emails: parcipant1@gmail.com, participant2@gmail.com"),
+                allOf(withId(R.id.detail_email), withText("Emails: parcipant5@gmail.com, participant6@gmail.com"),
                         withParent(allOf(withId(R.id.card_view_aboutMeTitle),
                                 withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class)))),
                         isDisplayed()));
-        textView4.check(matches(withText("Emails: parcipant1@gmail.com, participant2@gmail.com")));
+        textView4.check(matches(withText("Emails: parcipant5@gmail.com, participant6@gmail.com")));
     }
 
     private static Matcher<View> childAtPosition(

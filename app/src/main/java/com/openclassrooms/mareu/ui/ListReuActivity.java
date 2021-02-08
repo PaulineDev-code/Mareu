@@ -102,7 +102,6 @@ public class ListReuActivity extends AppCompatActivity {
 
     private void getDatePicker() {
         Calendar myCalendar = Calendar.getInstance();
-        Button buttonOK ;
 
         DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
 

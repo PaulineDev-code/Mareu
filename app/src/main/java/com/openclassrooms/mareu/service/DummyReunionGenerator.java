@@ -20,13 +20,13 @@ public abstract class DummyReunionGenerator {
             new Reunion(1, R.color.colorRed, "DummyReunion1", new Date(1609331400L*1000),
                     "Mario",  "parcipant1@gmail.com, participant2@gmail.com", "Première réunion auto-générée"),
             new Reunion(2, R.color.colorGreen, "DummyReunion2", new Date(1609419600L*1000),
-                    "Luigi",  "parcipant1@gmail.com, participant2@gmail.com", "Deuxième réunion auto-générée"),
+                    "Luigi",  "parcipant3@gmail.com, participant4@gmail.com", "Deuxième réunion auto-générée"),
             new Reunion(3, R.color.colorYellow, "DummyReunion3", new Date(1609507800L*1000),
-                    "Wario",  "parcipant1@gmail.com, participant2@gmail.com", "Troisième réunion auto-générée"),
+                    "Wario",  "parcipant5@gmail.com, participant6@gmail.com", "Troisième réunion auto-générée"),
             new Reunion(4, R.color.colorPurple, "DummyReunion4", new Date(1609596000L*1000),
-                    "Waluigi",  "parcipant1@gmail.com, participant2@gmail.com", "Quatrième réunion auto-générée"),
+                    "Waluigi",  "parcipant7@gmail.com, participant8@gmail.com", "Quatrième réunion auto-générée"),
             new Reunion(5, R.color.colorGreyWhite, "DummyReunion5", new Date(1609684200L*1000),
-                    "Boo",  "parcipant1@gmail.com, participant2@gmail.com", "Cinquième réunion auto-générée")
+                    "Boo",  "parcipant9@gmail.com, participant10@gmail.com", "Cinquième réunion auto-générée")
 
             );
 
