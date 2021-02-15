@@ -250,6 +250,7 @@ public class AddReuActivity extends AppCompatActivity {
         email.setText("");
     }
 
+
     private void setAddEmailButton() {
 
         addEmailButton.setOnClickListener(new View.OnClickListener() {
@@ -266,7 +267,11 @@ public class AddReuActivity extends AppCompatActivity {
                 chip.setIconStartPadding(3f);
                 chip.setPadding(60, 10, 60, 10);
                 chip.setText(email.getText().toString());
-                chip.setOnCloseIconClickListener(view1 -> chipGroup.removeView(chip));
+//                chip.setOnCloseIconClickListener(view1 -> chipGroup.removeView(chip));
+                chip.setOnCloseIconClickListener(view1 -> {
+                 chipGroup.removeView(chip);
+                 emails.remove(chip.getText().toString());
+                });
 
                 isEmailValid(chip);
             }
