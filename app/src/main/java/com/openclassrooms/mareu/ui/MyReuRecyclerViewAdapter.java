@@ -43,11 +43,11 @@ public class MyReuRecyclerViewAdapter extends RecyclerView.Adapter<MyReuRecycler
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH'h'mm", Locale.FRANCE);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH'h'mm", Locale.FRANCE);
         Reunion reunion = mReunion.get(position);
         holder.mReunionName.setText(reunion.getName());
         holder.mReunionAvatar.setColorFilter(context.getResources().getColor(reunion.getColor()));
-        holder.mReunionDate.setText(sdf.format(reunion.getDate()));
+        holder.mReunionDate.setText(" - " + sdf.format(reunion.getDate()) + " - ");
         holder.mReunionRoom.setText(reunion.getRoom());
         holder.mReunionEmails.setText(reunion.getEmail());
         holder.mDeleteButton.setOnClickListener(v -> EventBus.getDefault().post(new DeleteReunionEvent(reunion)));
