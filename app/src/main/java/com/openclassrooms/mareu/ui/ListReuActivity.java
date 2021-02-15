@@ -202,5 +202,6 @@ public class ListReuActivity extends AppCompatActivity {
     public void onDeleteReunion(DeleteReunionEvent event) {
         mApiService.deleteReunion(event.reunion);
         initRecyclerView();
+        showEmptyView();
     }
 }
